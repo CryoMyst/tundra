@@ -1,0 +1,6 @@
+ignore = [
+    "hardware-configuration.nix"
+]
+
+disabled = [
+]
