@@ -86,8 +86,8 @@ in {
         enable = true;
         settings = rec {
           initial_session = {
-            command = "${pkgs.sway}/bin/sway";
-            user = "cryomyst";
+            command = "${lib.getExe pkgs.sway}";
+            user = config.tundra.user.name;
           };
           default_session = initial_session;
         };
