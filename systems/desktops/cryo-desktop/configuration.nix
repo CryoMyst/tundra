@@ -20,6 +20,7 @@ in {
   ];
 
   users.users.cryomyst.initialPassword = "cryomyst";
+  hardware.enableRedistributableFirmware = true;
   programs.steam.enable = true;
 
   tundra = {

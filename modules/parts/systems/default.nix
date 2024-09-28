@@ -74,7 +74,7 @@ in {
                   ({...}: {
                     nixpkgs.config.allowUnfree = true;
 
-                    nixpkgs.overlays = withSystem config.system ({ overlays, ... }: overlays);
+                    nixpkgs.overlays = withSystem config.system ({overlays, ...}: overlays);
                   })
 
                   config.configuration
