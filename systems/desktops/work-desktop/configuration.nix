@@ -47,7 +47,7 @@ in {
       boot.enable = true;
       zfs = {
         enable = true;
-        hostId = "79e57cee";
+        hostId = "c7d9ef21";
       };
       locale.enable = true;
       fonts.enable = true;
