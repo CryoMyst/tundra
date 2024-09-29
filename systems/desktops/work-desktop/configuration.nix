@@ -68,4 +68,25 @@ in {
   };
 
   system.stateVersion = "24.11";
+
+  tundra.user = {
+    homeManager = {
+      xdg.desktopEntries = {
+        "Firefox - CryoMyst" = {
+          name = "Firefox CryoMyst";
+          exec = "firefox -p CryoMyst";
+          terminal = false;
+        };
+        "Firefox - Icon" = {
+          name = "Firefox Icon";
+          exec = "firefox -p Icon";
+          terminal = false;
+        };
+      };
+    };
+    packages = with pkgs; [
+      azure-cli
+      # openlens # Lens Closed its source code, package obsolete/stale - consider lens as replacement
+    ];
+  };
 }
