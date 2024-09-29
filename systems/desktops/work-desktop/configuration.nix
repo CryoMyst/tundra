@@ -86,7 +86,10 @@ in {
     };
     packages = with pkgs; [
       azure-cli
+      openvpn
       # openlens # Lens Closed its source code, package obsolete/stale - consider lens as replacement
     ];
   };
+  
+  boot.kernelModules = [ "tun" ];
 }
