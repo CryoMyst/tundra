@@ -34,6 +34,10 @@ in {
       config.common.default = "*";
     };
 
+    programs = {
+      dconf.enable = true;
+    };
+
     tundra.user.homeManager = {
       home.packages = with pkgs; [
         # TODO: Remove uneeded packages

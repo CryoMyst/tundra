@@ -11,9 +11,16 @@ with lib.tundra; let
 in {
   options.tundra.system.boot = with types; {
     enable = mkEnableOption "Enable boot support";
+    kernelParams = {
+    };
+    extraKernelParams = mkOpt (listOf str) [] "Extra kernel parameters";
+    kernelModules = {
+      vfio = mkEnableOption "Enable VFIO kernel modules";
+    };
   };
 
   config = mkIf cfg.enable {
+    hardware.enableRedistributableFirmware = true;
     boot = {
       loader = {
         systemd-boot = {
@@ -27,6 +34,14 @@ in {
         efi.canTouchEfiVariables = true;
       };
       tmp.cleanOnBoot = true;
+      kernelParams = cfg.extraKernelParams or [];
+      initrd.kernelModules =
+        []
+        ++ (optionals cfg.kernelModules.vfio [
+          "vfio"
+          "vfio_iommu_type1"
+          "vfio_pci"
+        ]);
     };
   };
 }

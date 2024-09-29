@@ -9,6 +9,7 @@
   ...
 }: let
   arch = "znver3";
+  hostName = "cryo-desktop";
 in {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -20,26 +21,27 @@ in {
   ];
 
   users.users.cryomyst.initialPassword = "cryomyst";
-  hardware.enableRedistributableFirmware = true;
-  programs.steam.enable = true;
 
   tundra = {
     hardware = {
+      cpu.type = "amd";
+      ram.total = 128;
+      audio.enable = true;
       networking = {
         enable = true;
-        hostName = "cryo-desktop";
+        inherit hostName;
       };
-      audio.enable = true;
       graphics = {
         enable = true;
         gpuTypes = ["amd"];
       };
       bluetooth = {
         enable = true;
-        hostname = "cryo-desktop";
+        inherit hostName;
       };
     };
     programs = {
+      thunar.enable = true;
       alacritty.enable = true;
     };
     services = {
@@ -48,60 +50,43 @@ in {
       xserver.enable = true;
     };
     system = {
-      boot.enable = true;
+      boot = {
+        enable = true;
+        extraKernelParams = [
+          "zswap.enabled=1"
+          "amd_iommu=on"
+          "mitigations=off"
+          "nowatchdog"
+          # "vfio-pci.ids=1002:73ff,1002:ab28"
+        ];
+        kernelModules = {
+          vfio = true;
+        };
+      };
       zfs = {
         enable = true;
         hostId = "79e57cee";
       };
       locale.enable = true;
       fonts.enable = true;
+      impermanence = {
+        enable = true;
+        critical.path = "/persist";
+        volatile.path = "/persist/system";
+      };
     };
     setups.sway.enable = true;
   };
 
-  # services.xserver.enable = true;
-  # services.displayManager.sddm.enable = true;
-  # services.desktopManager.plasma6.enable = true;
-  # security.pam.services.sddm.enableGnomeKeyring = true;
-
   programs = {
-    dconf.enable = true;
     noisetorch.enable = true;
-    zsh.enable = true;
     nix-ld.enable = true;
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
-    };
-  };
-  services = {
-    # printing.enable = true;
-    dbus.enable = true;
-    gnome.gnome-keyring.enable = true;
-    gvfs.enable = true;
-    udisks2.enable = true;
-    devmon.enable = true;
-    tumbler.enable = true;
+    steam.enable = true;
   };
 
   fileSystems."/persist".neededForBoot = true;
   fileSystems."/persist/system".neededForBoot = true;
   system.stateVersion = "24.11";
-
-  # From previous config
-  boot.kernelParams = [
-    "zswap.enabled=1"
-    "amd_iommu=on"
-    "mitigations=off"
-    "nowatchdog"
-    # "vfio-pci.ids=1002:73ff,1002:ab28"
-  ];
-
-  boot.initrd.kernelModules = [
-    "vfio_pci"
-    "vfio"
-    "vfio_iommu_type1"
-  ];
 
   tundra.user.homeManager = {
     wayland.windowManager.sway.config = rec {
@@ -116,7 +101,7 @@ in {
 
       keybindings = let
         # Just redefine here for now
-        modifier = "Mod4";
+        modifier = config.tundra.programs.sway.modifier;
       in
         pkgs.lib.mkOptionDefault {
           # 10th workspace for 2nd display
@@ -133,7 +118,6 @@ in {
           mode = "1920x1080@60.000Hz";
           pos = "3840,0";
           transform = "270";
-          # transform = "90";
         };
       };
 

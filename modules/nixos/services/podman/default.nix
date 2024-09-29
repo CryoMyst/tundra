@@ -31,5 +31,12 @@ in {
       docker-compose
       podman-compose
     ];
+
+    tundra.system.impermanence.volatile.system = {
+      directories = [
+        "/etc/containers"
+        "/var/lib/containers"
+      ];
+    };
   };
 }

@@ -9,6 +9,7 @@
   ...
 }: let
   arch = "znver3";
+  hostName = "work-desktop";
 in {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-amd
@@ -20,13 +21,14 @@ in {
   ];
 
   users.users.ben.initialPassword = "ben";
-  hardware.enableRedistributableFirmware = true;
 
   tundra = {
     hardware = {
+      cpu.type = "amd";
+      ram.total = 16;
       networking = {
         enable = true;
-        hostName = "work-desktop";
+        inherit hostName;
       };
       audio.enable = true;
       graphics = {
@@ -35,8 +37,12 @@ in {
       };
       bluetooth = {
         enable = true;
-        hostname = "work-desktop";
+        inherit hostName;
       };
+    };
+    programs = {
+      thunar.enable = true;
+      alacritty.enable = true;
     };
     services = {
       podman.enable = true;
@@ -44,7 +50,13 @@ in {
       xserver.enable = true;
     };
     system = {
-      boot.enable = true;
+      boot = {
+        enable = true;
+        extraKernelParams = [
+          "zswap.enabled=1"
+          "nowatchdog"
+        ];
+      };
       zfs = {
         enable = true;
         hostId = "c7d9ef21";
@@ -55,31 +67,5 @@ in {
     setups.sway.enable = true;
   };
 
-  programs = {
-    dconf.enable = true;
-    noisetorch.enable = true;
-    zsh.enable = true;
-    nix-ld.enable = true;
-    thunar = {
-      enable = true;
-      plugins = with pkgs.xfce; [thunar-archive-plugin thunar-volman];
-    };
-  };
-  services = {
-    # printing.enable = true;
-    dbus.enable = true;
-    gnome.gnome-keyring.enable = true;
-    gvfs.enable = true;
-    udisks2.enable = true;
-    devmon.enable = true;
-    tumbler.enable = true;
-  };
-
   system.stateVersion = "24.11";
-
-  # From previous config
-  boot.kernelParams = [
-    "zswap.enabled=1"
-    "nowatchdog"
-  ];
 }

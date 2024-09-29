@@ -11,7 +11,7 @@ with lib.tundra; let
 in {
   options.tundra.hardware.bluetooth = with types; {
     enable = mkEnableOption "Enable bluetooth module";
-    hostname = mkNullOpt str "Hostname for bluetooth";
+    hostName = mkNullOpt str "Hostname for bluetooth";
   };
 
   config = mkIf cfg.enable {
@@ -23,7 +23,7 @@ in {
       package = pkgs.bluez;
       settings = {
         General = {
-          Name = cfg.hostname;
+          Name = cfg.hostName;
           ControllerMode = "dual";
           FastConnectable = "true";
           Experimental = "true";
