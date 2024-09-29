@@ -70,7 +70,7 @@ in {
       locale.enable = true;
       fonts.enable = true;
       impermanence = {
-        enable = true;
+        # enable = true;
         critical.path = "/persist";
         volatile.path = "/persist/system";
       };
