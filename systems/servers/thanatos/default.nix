@@ -10,11 +10,10 @@
     configuration = ./configuration.nix;
     modules = [
       inputs.nixvirt.nixosModules.default
-      inputs.impermanence.nixosModules.impermanence
       inputs.microvm.nixosModules.host
     ];
-    users.homelab = {
-      enable = true;
+    user = {
+      name = "homelab";
       isAdmin = true;
     };
   };

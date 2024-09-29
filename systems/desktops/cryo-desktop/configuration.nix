@@ -82,6 +82,7 @@ in {
     noisetorch.enable = true;
     nix-ld.enable = true;
     steam.enable = true;
+    gamescope.enable = true;
   };
 
   fileSystems."/persist".neededForBoot = true;

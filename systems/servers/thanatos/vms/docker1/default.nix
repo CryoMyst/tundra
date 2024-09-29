@@ -158,6 +158,7 @@
             hideMounts = true;
             directories = [
               # "/var/lib/docker"
+              "/etc/containers"
               "/var/lib/containers"
             ];
             files = [

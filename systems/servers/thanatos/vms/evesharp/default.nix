@@ -1,4 +1,5 @@
 {
+  lib,
   pkgs,
   inputs,
   ...
@@ -17,13 +18,14 @@ in {
               unit = "GiB";
             };
             storage_vol = {
-              pool = "DefaultPool";
+              pool = "ImagePool";
               volume = "EveSharp.qcow2";
             };
             install_vol = /persist/libvirt/isos/Win11_23H2_English_x64v2.iso;
             nvram_path = /persist/libvirt/ram/EveSharp.nvram;
             virtio_net = true;
             virtio_drive = true;
+            virtio_video = false;
             install_virtio = true;
           }
           // {
@@ -39,9 +41,18 @@ in {
                 cores = 6;
                 threads = 2;
               };
-              feature = {
-                policy = "require";
-                name = "topoext";
+              feature = [
+                {
+                  policy = "require";
+                  name = "topoext";
+                }
+                {
+                  policy = "require";
+                  name = "avic";
+                }
+              ];
+              cache = {
+                mode = "passthrough";
               };
             };
             iothreads = {
@@ -110,7 +121,8 @@ in {
           });
       }
     ];
-    networks = [];
+    networks = [
+    ];
     pools = [
       {
         active = true;
