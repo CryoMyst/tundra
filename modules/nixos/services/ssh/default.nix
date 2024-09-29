@@ -24,5 +24,12 @@ in {
         PermitRootLogin = "no";
       };
     };
+
+    tundra.user.extraOptions = {
+      openssh.authorizedKeys.keys = [
+        # Main key
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBcDtmczDm58vyrc+DkOnu9HzgSaZR7nwOjfK7nGx1Y CryoMyst@hotmail.com"
+      ];
+    };
   };
 }
