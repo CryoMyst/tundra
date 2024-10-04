@@ -8,7 +8,10 @@
     enable = true;
     system = "x86_64-linux";
     configuration = ./configuration.nix;
-    modules = [];
+    modules = [
+      inputs.nixvirt.nixosModules.default
+      # inputs.nixos-vfio.nixosModules.vfio
+    ];
     user = {
       name = "cryomyst";
       isAdmin = true;

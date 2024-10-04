@@ -24,7 +24,10 @@
     # Virtualization
     wfvm.url = "git+https://git.m-labs.hk/m-labs/wfvm";
     nixvirt.url = "github:AshleyYakeley/NixVirt";
+    nixvirt.inputs.nixpkgs.follows = "nixpkgs";
     microvm.url = "github:astro/microvm.nix";
+    nixos-vfio.url = "github:Stefanuk12/nixos-vfio";
+    nixos-vfio.inputs.nixpkgs.follows = "nixpkgs";
 
     # Security & Configuration Management
     impermanence.url = "github:nix-community/impermanence";

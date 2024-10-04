@@ -18,7 +18,7 @@
     ./vms/nas
 
     # Libvirt VMs
-    ./vms/evesharp
+    # ./vms/evesharp
   ];
 
   fileSystems."/persist" = {
@@ -39,7 +39,7 @@
   users.users.homelab = {
     isNormalUser = true;
     initialPassword = "homelab";
-    extraGroups = ["wheel" "libvirtd" "docker"];
+    extraGroups = ["wheel" "libvirtd" "docker" "kvm"];
     packages = with pkgs; [
       firefox
       tree

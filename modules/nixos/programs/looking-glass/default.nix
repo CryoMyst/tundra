@@ -14,6 +14,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    hardware.opengl.enable = true;
+    virtualisation.spiceUSBRedirection.enable = true;
+
     systemd.tmpfiles.rules = [
       "f /dev/shm/looking-glass 0666 ${config.tundra.user.name} kvm -"
     ];

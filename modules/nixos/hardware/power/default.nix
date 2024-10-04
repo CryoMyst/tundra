@@ -15,12 +15,9 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.logind.extraConfig =
-      if cfg.disablePowerButton
-      then ''
-        # don’t shutdown when power button is short-pressed
-        HandlePowerKey=ignore
-      ''
-      else '''';
+    services.logind.extraConfig = lib.optionalString cfg.disablePowerButton ''
+      # don’t shutdown when power button is short-pressed
+      HandlePowerKey=ignore
+    '';
   };
 }

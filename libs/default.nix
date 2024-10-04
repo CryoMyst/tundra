@@ -7,11 +7,11 @@
 
   # Directories containing custom library modules
   flakeLibDirectories = [
+    ./extendedTypes
     ./fileSystem
     ./general
     ./lists
     ./module
-    ./extendedTypes
   ];
 
   # Namespace for custom library modules

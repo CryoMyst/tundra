@@ -18,6 +18,8 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     ./disko.nix
+    # ./networking.nix
+    # ./vm.nix
   ];
 
   users.users.cryomyst.initialPassword = "cryomyst";
@@ -27,13 +29,13 @@ in {
       cpu.type = "amd";
       ram.total = 128;
       audio.enable = true;
-      networking = {
-        enable = true;
-        inherit hostName;
-      };
       graphics = {
         enable = true;
         gpuTypes = ["amd"];
+      };
+      networking = {
+        enable = true;
+        inherit hostName;
       };
       bluetooth = {
         enable = true;
@@ -43,6 +45,7 @@ in {
     programs = {
       thunar.enable = true;
       alacritty.enable = true;
+      looking-glass.enable = true;
     };
     services = {
       podman.enable = true;
@@ -57,7 +60,7 @@ in {
           "amd_iommu=on"
           "mitigations=off"
           "nowatchdog"
-          # "vfio-pci.ids=1002:73ff,1002:ab28"
+          "vfio-pci.ids=1002:73ff,1002:ab28"
         ];
         kernelModules = {
           vfio = true;
