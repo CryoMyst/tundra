@@ -14,8 +14,8 @@
     ./networking.nix
 
     # MicroVMs
-    ./vms/docker1
-    ./vms/nas
+    # ./vms/docker1
+    # ./vms/nas
 
     # Libvirt VMs
     # ./vms/evesharp
@@ -47,6 +47,8 @@
       sudo
       rsync
       git
+      ethtool
+      btop
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHBcDtmczDm58vyrc+DkOnu9HzgSaZR7nwOjfK7nGx1Y CryoMyst@hotmail.com"
@@ -133,6 +135,7 @@
     kernelParams = let
       LsiCard = ["1000:0072"];
       amdGpu = ["1002:73ff" "1002:ab28"];
+      amdGgpu = [];
       intelGpu = ["8086:56a5" "8086:4f92"];
 
       pcieIdParameter = builtins.concatStringsSep "," (LsiCard ++ amdGpu ++ intelGpu);

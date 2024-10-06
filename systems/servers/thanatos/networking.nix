@@ -1,6 +1,6 @@
 {lib, ...}: let
-  interface = "enp5s0";
-  fallback_interface = "enp6s0";
+  interface = "enp6s0";
+  fallback_interface = "enp7s0";
   bridge_interface = "br0";
 in {
   networking.networkmanager.enable = lib.mkForce false;

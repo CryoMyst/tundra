@@ -1,11 +1,12 @@
 _: {
   disko.devices = let
-    mainDisk = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B77855EF185";
+    nvme1 = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B77855EF185";
+    nvme2 = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B7786BDB531";
   in {
     disk = {
       x = {
         type = "disk";
-        device = mainDisk;
+        device = nvme1;
         content = {
           type = "gpt";
           partitions = {
@@ -28,10 +29,27 @@ _: {
           };
         };
       };
+      y = {
+        type = "disk";
+        device = nvme2;
+        content = {
+          type = "gpt";
+          partitions = {
+            zfs = {
+              size = "100%";
+              content = {
+                type = "zfs";
+                pool = "zroot";
+              };
+            };
+          };
+        };
+      };
     };
     zpool = {
       zroot = {
         type = "zpool";
+        mode = "mirror";
         rootFsOptions = {
           compression = "zstd";
           mountpoint = "none";
