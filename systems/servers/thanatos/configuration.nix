@@ -134,8 +134,8 @@
     ];
     kernelParams = let
       LsiCard = ["1000:0072"];
-      amdGpu = ["1002:73ff" "1002:ab28"];
-      amdGgpu = [];
+      # amdGpu = ["1002:73ff" "1002:ab28"];
+      amdGpu = [];
       intelGpu = ["8086:56a5" "8086:4f92"];
 
       pcieIdParameter = builtins.concatStringsSep "," (LsiCard ++ amdGpu ++ intelGpu);
