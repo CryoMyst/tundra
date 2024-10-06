@@ -1,7 +1,7 @@
 _: {
   disko.devices = let
     nvme1 = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B77855EF185";
-    nvme2 = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B7786BDB531";
+    nvme2 = "/dev/disk/by-id/nvme-KINGSTON_SNV2S2000G_50026B7686BDB531";
   in {
     disk = {
       x = {
