@@ -33,11 +33,11 @@
               # Intel GPU
               {
                 bus = "pci";
-                path = "0000:0f:00.0";
+                path = "0000:10:00.0";
               }
               {
                 bus = "pci";
-                path = "0000:10:00.0";
+                path = "0000:11:00.0";
               }
             ];
             volumes = [

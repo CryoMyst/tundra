@@ -33,7 +33,7 @@
               {
                 bus = "pci";
                 # LSI card
-                path = "0000:04:00.0";
+                path = "0000:05:00.0";
               }
             ];
             hypervisor = "qemu";
@@ -44,7 +44,7 @@
 
           imports = [
             inputs.disko.nixosModules.default
-            ./disko.nix
+            # ./disko.nix
           ];
 
           networking.hostId = "bd09613e";
@@ -84,10 +84,10 @@
             zfs
           ];
 
-          fileSystems."/export/zdata" = {
-            device = "/pools/zdata";
-            options = ["bind"];
-          };
+          # fileSystems."/export/zdata" = {
+          #   device = "/pools/zdata";
+          #   options = ["bind"];
+          # };
           networking.firewall.allowedTCPPorts = [2049];
           services.nfs.server.enable = true;
           services.nfs.server.exports = ''
