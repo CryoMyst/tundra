@@ -14,7 +14,7 @@
     ./networking.nix
 
     # MicroVMs
-    # ./vms/docker1
+    ./vms/docker1
     ./vms/nas
 
     # Libvirt VMs

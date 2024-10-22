@@ -44,7 +44,7 @@
 
           imports = [
             inputs.disko.nixosModules.default
-            # ./disko.nix
+            ./disko.nix
           ];
 
           networking.hostId = "bd09613e";
@@ -84,16 +84,40 @@
             zfs
           ];
 
-          # fileSystems."/export/zdata" = {
-          #   device = "/pools/zdata";
-          #   options = ["bind"];
-          # };
+          fileSystems."/export/zdata" = {
+            device = "/pools/zdata";
+            options = ["bind"];
+          };
           networking.firewall.allowedTCPPorts = [2049];
           services.nfs.server.enable = true;
           services.nfs.server.exports = ''
             /export       10.1.0.0/16(rw,fsid=0,no_subtree_check)
             /export/zdata 10.1.0.0/16(rw,sync,no_subtree_check,no_root_squash)
           '';
+          services.samba = {
+            enable = true;
+            openFirewall = true;
+            settings = {
+              global = {
+                workgroup = "WORKGROUP";
+                "server string" = "NAS";
+                "hosts allow" = "10.1.0.0/16";
+                "max log size" = "50";
+                "syslog only" = true;
+              };
+              public = {
+                comment = "public";
+                path = "/pools/zdata";
+                public = "yes";
+                "only guest" = "yes";
+                "create mask" = "0644";
+                "directory mask" = "2777";
+                writable = "no";
+                browseable = "yes";
+                printable = "no";
+              };
+            };
+          };
         };
       };
     };

@@ -36,6 +36,7 @@ in {
       pciutils
       valgrind
       distrobox
+      distrobox-tui
       screen
       man-pages
       man-pages-posix
